@@ -1,10 +1,9 @@
+// TaskStatus as enum because it is a fixed set of values
 export enum TaskStatusEnum {
   TODO = 'TODO',
   IN_PROGRESS = 'IN_PROGRESS',
   DONE = 'DONE',
 }
-
-export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE';
 
 export interface Task {
   id: string;

@@ -42,25 +42,31 @@ export default function App() {
     console.log('DragCancelEvent - DraggableElementId: ' + event.active.id);
   }
 
+  const filteredTaskByColumn = (columnId: string) => (
+    tasks.filter((task) => task.status === columnId)
+  );
 
   return (
     <div className="p-4">
-      <div className="flex gap-8">
+      <div className="flex flex-col items-ceter justify-center gap-8">
         <DndContext
           onDragEnd={handleDragEnd}
           onDragOver={handleDragOver}
           onDragStart={handleDragStart}
           onDragCancel={handleCancelDrop}
         >
-          {COLUMNS.map((column) => {
-            return (
-              <Column
-                key={column.id}
-                column={column}
-                tasks={tasks.filter((task) => task.status === column.id)}
-              />
-            );
-          })}
+          <div className='flex gap-8 width-full justify-center'>
+
+            {COLUMNS.map((column) => {
+              return (
+                <Column
+                  key={column.id}
+                  column={column}
+                  tasks={filteredTaskByColumn(column.id)}
+                />
+              );
+            })}
+          </div>
         </DndContext>
       </div>
     </div>
