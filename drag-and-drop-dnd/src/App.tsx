@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import { DndContext, DragCancelEvent, DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core';
 import { Task } from './components/TaskCard/TaskCard.types';
-import { INITIAL_TASKS } from './data/initialTask';
 import { COLUMNS } from './data/columns';
 import Column from './components/Column/Column';
+import { ProvideTasks, useTasks } from './context/TaskContext/TaskContext';
 
-export default function App() {
-  const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
+const KanbanTaskApp = () => {
+  const { tasks, setTasks } = useTasks();
 
   const handleDragEnd = (event: DragEndEvent) => {
     console.log('DragEndEvent - DraggableElementId: ' + event.active.id);
@@ -14,7 +13,7 @@ export default function App() {
 
     if (!over) return;
 
-    const taskId = active.id as string;
+    const taskId = active.id as number;
     const newStatus = over.id as Task['status'];
 
     setTasks(() =>
@@ -56,7 +55,6 @@ export default function App() {
           onDragCancel={handleCancelDrop}
         >
           <div className='flex gap-8 width-full justify-center'>
-
             {COLUMNS.map((column) => {
               return (
                 <Column
@@ -72,3 +70,12 @@ export default function App() {
     </div>
   );
 }
+
+
+export default function App() {
+  return (
+    <ProvideTasks>
+      <KanbanTaskApp />
+    </ProvideTasks>
+  );
+};
