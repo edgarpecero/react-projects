@@ -1,70 +1,60 @@
 import { DndContext, DragCancelEvent, DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core';
-import { Task } from './components/TaskCard/TaskCard.types';
-import { COLUMNS } from './data/columns';
-import Column from './components/Column/Column';
+import { TaskStatusEnum } from './components/TaskCard/TaskCard.types';
 import { ProvideTasks, useTasks } from './context/TaskContext/TaskContext';
+import DeleteZone from './components/DeleteZone/DeleteZone';
+import AddNewTask from './components/AddNewTask/AddNewTask';
+import Kanban from './components/Kanban/Kanban';
 
-const KanbanTaskApp = () => {
-  const { tasks, setTasks } = useTasks();
+const TaskApp = () => {
+  const { setTasks } = useTasks();
 
   const handleDragEnd = (event: DragEndEvent) => {
-    console.log('DragEndEvent - DraggableElementId: ' + event.active.id);
+    // active = the task being dragged
+    // over = the dropzone being dragged over
     const { active, over } = event;
 
+    // If there is no dropzone, return
     if (!over) return;
 
     const taskId = active.id as number;
-    const newStatus = over.id as Task['status'];
+    const newStatus = over.id as TaskStatusEnum;
 
-    setTasks(() =>
-      tasks.map((task) =>
-        task.id === taskId
-          ? {
-            ...task,
-            status: newStatus,
-          }
-          : task,
-      ),
+    console.log('DraggableElementId: ' + taskId);
+    console.log('Dropzone: ', newStatus);
+
+    // Update the status of the task
+    // TODO: Add filter when task dropped over delete zone to completely remove from todos
+    setTasks((prevTask) =>
+      prevTask.map(task =>
+        task.id === taskId ? { ...task, status: newStatus } : task
+      )
     );
   }
 
-  const handleDragOver = (event: DragOverEvent) => {
-    console.log('DragOverEvent over ColumnId: ' + event.over?.id);
-  }
+  /*
+  Uncomment the following code to see the console logs
+  
+    const handleDragOver = (event: DragOverEvent) => {
+      console.log('DropZone: ', event.over);
+      console.log('Element: ', event.active);
+    }
 
-  const handleDragStart = (event: DragStartEvent) => {
-    // console.log(event.active);
-    console.log('DragStartEvent - DraggableElementId: ' + event.active.id);
-  }
+    const handleDragStart = (event: DragStartEvent) => {
+      console.log('DragStartEvent - DraggableElementId: ' + event.active.id);
+    }
 
-  const handleCancelDrop = (event: DragCancelEvent) => {
-    console.log('DragCancelEvent - DraggableElementId: ' + event.active.id);
-  }
-
-  const filteredTaskByColumn = (columnId: string) => (
-    tasks.filter((task) => task.status === columnId)
-  );
+    const handleCancelDrop = (event: DragCancelEvent) => {
+      console.log('DragCancelEvent - DraggableElementId: ' + event.active.id);
+    }
+  */
 
   return (
     <div className="p-4">
       <div className="flex flex-col items-ceter justify-center gap-8">
-        <DndContext
-          onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}
-          onDragStart={handleDragStart}
-          onDragCancel={handleCancelDrop}
-        >
-          <div className='flex gap-8 width-full justify-center'>
-            {COLUMNS.map((column) => {
-              return (
-                <Column
-                  key={column.id}
-                  column={column}
-                  tasks={filteredTaskByColumn(column.id)}
-                />
-              );
-            })}
-          </div>
+        <DndContext onDragEnd={handleDragEnd} >
+          <AddNewTask />
+          <Kanban />
+          <DeleteZone />
         </DndContext>
       </div>
     </div>
@@ -75,7 +65,7 @@ const KanbanTaskApp = () => {
 export default function App() {
   return (
     <ProvideTasks>
-      <KanbanTaskApp />
+      <TaskApp />
     </ProvideTasks>
   );
 };

@@ -5,7 +5,7 @@ import { Task, TaskStatusEnum } from '../../components/TaskCard/TaskCard.types';
 interface UseTasksContext {
   tasks: Task[];
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-  onAddTask: (task: Task) => void;
+  onAddTask: (task: Partial<Task>) => void;
 }
 
 const TasksContext = createContext({} as UseTasksContext);
@@ -22,11 +22,11 @@ export const useTasks = () => {
 const useProvideTasks = (): UseTasksContext => {
   const [tasks, setTasks] = useState(INITIAL_TASKS);
 
-  const onAddTask = useCallback((task: Task) => {
-    const newTask = {
+  const onAddTask = useCallback(({ title, description }: Partial<Task>) => {
+    const newTask: Task = {
       id: tasks.length + 1,
-      title: task.title,
-      description: task.description,
+      title: title!,
+      description: description!,
       status: TaskStatusEnum.TODO,
     };
     setTasks(prevTask => [...prevTask, newTask]);
