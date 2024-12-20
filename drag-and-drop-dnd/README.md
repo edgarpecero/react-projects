@@ -15,4 +15,4 @@ A Kanban-style project management application inspired by Jira. Features include
 This project demonstrates React, state management, and drag-and-drop handling.
 
 
-![react-drag-and-drop-dnd--gif](https://github.com/user-attachments/assets/6d801524-2ae2-47de-a50d-4dcbbf333a1e)
+![react-drag-and-drop-dnd--gif](https://github.com/user-attachments/assets/864ac1fc-e1c0-495c-9606-062c0c520f77)
