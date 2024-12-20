@@ -4,6 +4,15 @@ This repository contains a collection of React projects developed using TypeScri
 
 ## Projects
 
+### 0. utils
+A collection of reusable utility functions designed to streamline common operations across applications. The utils file includes:
+- **Formatting Helpers**: Functions for formatting dates, prices, and percentages.
+- **Data Manipulation**: Utilities for merging, filtering, and summing values.
+- **React-Specific Helpers**: Accessibility props and React component utilities.
+- **Miscellaneous**: Enum conversions, permissions checks, and other helper functions.
+
+This utils file is shared across projects to ensure consistency and reduce redundant code.
+
 ### 1. drag-and-drop-dnd
 A Kanban-style project management application inspired by Jira. Features include:
 - **Columns**: "To-Do", "In Progress", and "Done" for task management.
