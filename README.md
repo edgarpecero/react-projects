@@ -2,9 +2,8 @@
 
 This repository contains a collection of React projects developed using TypeScript. Each project showcases different libraries, tools, and techniques to build modern web applications. More projects will be added in the future!
 
-## Projects
-
-### 0. utils
+### Utils and consts
+### 0.1 utils
 A collection of reusable utility functions designed to streamline common operations across applications. The utils file includes:
 - **Formatting Helpers**: Functions for formatting dates, prices, and percentages.
 - **Data Manipulation**: Utilities for merging, filtering, and summing values.
@@ -13,6 +12,17 @@ A collection of reusable utility functions designed to streamline common operati
 
 This utils file is shared across projects to ensure consistency and reduce redundant code.
 
+### 0.2 constants
+A centralized file containing reusable constants for the projects. These constants ensure consistency and prevent hardcoding values across the application. The file includes:
+
+- **Regex Patterns**: Predefined regular expressions for validating alphanumeric inputs, usernames, passwords, dollar values, and more.
+- **Date and Time Formats**: Standard formats for date pickers and time pickers.
+- **Currency Information**: Data for different currencies, including their values, roll sizes, and whether they are coins or notes.
+- **State List**: A comprehensive list of U.S. states with their abbreviations and labels for use in dropdowns or forms.
+
+This constants file simplifies validation, formatting, and other repetitive tasks while maintaining a consistent codebase.
+
+## Projects
 ### 1. drag-and-drop-dnd
 A Kanban-style project management application inspired by Jira. Features include:
 - **Columns**: "To-Do", "In Progress", and "Done" for task management.
